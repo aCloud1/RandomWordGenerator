@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="text_primary">#3d3d3d</color>
+    <color name="text_secondary">#DDDDDD</color>
+
+    <color name="main_color">#312F99</color>
+    <color name="main_color_variant">#14133D</color>
+
+    <color name="secondary_color">#4E4BF2</color>
+    <color name="secondary_color_variant">#9594F2</color>
+
+    <color name="background_day">#FFFFFF</color>
+    <color name="background_night">#121212</color>
+</resources>
