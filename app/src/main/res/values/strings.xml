@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">RandomWordGenerator</string>
+    <string name="sveiki">Sveiki!</string>
+    <string name="kitas">Kitas</string>
+    <string name="settings">Settings</string>
+    <string name="about">About</string>
+    <string name="lietuviu_kalbos_zodynas">Lietuvių kalbos žodynas</string>
+    <string name="back">Back</string>
+    <string name="nevartotini_zodziai_zargonas">Nevartotini žodžiai, žargonas</string>
+    <string name="tarptautiniu_zodziu_zodynas">Tarptautinių žodžių žodynas</string>
+    <string name="save">Save</string>
+</resources>

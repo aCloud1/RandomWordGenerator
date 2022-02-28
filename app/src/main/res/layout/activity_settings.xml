@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Settings">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/settings_button_back"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="@string/back"
+        app:icon="@drawable/ic_baseline_arrow_back_24"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar2"
+        app:layout_constraintStart_toStartOf="@+id/toolbar2"
+        app:layout_constraintTop_toTopOf="@+id/toolbar2" />
+
+    <Button
+        android:id="@+id/settings_button_save"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="@string/save"
+        app:icon="@drawable/ic_baseline_save_24"
+        app:iconGravity="end"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar2"
+        app:layout_constraintEnd_toEndOf="@+id/toolbar2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar2">
+
+        <CheckBox
+            android:id="@+id/cb_lkz"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/lietuviu_kalbos_zodynas" />
+
+        <CheckBox
+            android:id="@+id/cb_slang"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/nevartotini_zodziai_zargonas" />
+
+        <CheckBox
+            android:id="@+id/cb_tzz"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/tarptautiniu_zodziu_zodynas" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
