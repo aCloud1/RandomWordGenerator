@@ -10,10 +10,13 @@ import java.util.Vector;
 public class Dictionary
 {
     boolean enabled = true;
+    String name;
     Vector<String> words;
 
     public Dictionary(Context context, String file_name)
     {
+        this.name = file_name.substring(0, file_name.indexOf('.'));
+
         InputStream in;
         Scanner scanner;
         words = new Vector<>();
@@ -30,8 +33,9 @@ public class Dictionary
         }
     }
 
-    public String getWord(int id) { return words.get(id); }
+    public String getName() { return this.name; }
+    public String getWord(int id) { return this.words.get(id); }
     public void setEnabled(boolean value) { this.enabled = value; }
+    public boolean isEnabled() { return this.enabled; }
     public int getSize() { return this.words.size(); }
-
 }

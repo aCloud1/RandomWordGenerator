@@ -9,4 +9,6 @@
     <string name="nevartotini_zodziai_zargonas">Nevartotini žodžiai, žargonas</string>
     <string name="tarptautiniu_zodziu_zodynas">Tarptautinių žodžių žodynas</string>
     <string name="save">Save</string>
+    <string name="naktinis_rezimas">Naktinis rėžimas</string>
+    <string name="debug_info">Debug info</string>
 </resources>
