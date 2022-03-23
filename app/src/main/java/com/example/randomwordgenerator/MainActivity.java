@@ -16,24 +16,24 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import java.util.BitSet;
 import java.util.Objects;
 import java.util.Random;
-import java.util.Vector;
-
 
 public class MainActivity extends AppCompatActivity
 {
     public final String shared_prefs = "sharedPreferences";
-    Vector<Dictionary> dictionaries;
     boolean night_mode_on = false;
+    BitSet enabled_dictionaries;
 
     TextView tw_word;
     TextView tw_info;
     Button button_next;
     Toolbar action_bar;
     Random rand;
+
+    DatabaseHelper dbh = new DatabaseHelper(this);
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -47,35 +47,29 @@ public class MainActivity extends AppCompatActivity
         button_next = findViewById(R.id.button_next);
         action_bar = findViewById(R.id.toolbar);
         rand = new Random();
+        enabled_dictionaries = new BitSet();
 
         action_bar.setTitle("");
         setSupportActionBar(action_bar);
 
-        dictionaries = new Vector<Dictionary>();
-        dictionaries.add(new Dictionary(this,"lkz.dat"));
-        dictionaries.add(new Dictionary(this,"slang.dat"));
-        dictionaries.add(new Dictionary(this,"tzz.dat"));
-
-        button_next.setOnClickListener(new View.OnClickListener()
+        button_next.setOnClickListener(v ->
         {
-            @RequiresApi(api = Build.VERSION_CODES.R)
-            @Override
-            public void onClick(View v)
+            int random_table_id;
+            do
             {
-                int random_dict_id;
-                do
-                {
-                    random_dict_id = rand.nextInt(dictionaries.size());
-                } while (!dictionaries.get(random_dict_id).enabled);
+                random_table_id = rand.nextInt(3);
+            } while (!enabled_dictionaries.get(random_table_id));
 
-                int random_word_id = rand.nextInt(dictionaries.get(random_dict_id).getSize());
+            int size = dbh.getTableSize(random_table_id);
+            int random_word_id = rand.nextInt(size);
 
-                String random_word = dictionaries.get(random_dict_id).getWord(random_word_id);
+            String random_word = dbh.getRandomWord(random_table_id, random_word_id);
+            if(random_word.equals("-1"))
+                return;
 
-                String text = random_dict_id+1 + ": " + random_word_id + " / " + dictionaries.get(random_dict_id).getSize();
-                tw_info.setText(text);
-                tw_word.setText(random_word);
-            }
+            String text = (random_table_id+1) + ": " + (random_word_id+1) + " / " + size;
+            tw_info.setText(text);
+            tw_word.setText(random_word);
         });
 
 
@@ -101,9 +95,14 @@ public class MainActivity extends AppCompatActivity
         super.onResume();
         SharedPreferences shared_preferences = getSharedPreferences(shared_prefs, MODE_PRIVATE);
         this.night_mode_on = shared_preferences.getBoolean("NightMode", false);
-        dictionaries.get(0).setEnabled(shared_preferences.getBoolean("lkz", true));
-        dictionaries.get(1).setEnabled(shared_preferences.getBoolean("slang", true));
-        dictionaries.get(2).setEnabled(shared_preferences.getBoolean("tzz", true));
+        enabled_dictionaries.clear();
+        if(shared_preferences.getBoolean("lkz", true))
+            enabled_dictionaries.set(0);
+        if(shared_preferences.getBoolean("slang", true))
+            enabled_dictionaries.set(1);
+        if(shared_preferences.getBoolean("tzz", true))
+            enabled_dictionaries.set(2);
+
         boolean temp = shared_preferences.getBoolean("debugMode", false);
         if(temp)
             tw_info.setVisibility(View.VISIBLE);
@@ -111,6 +110,12 @@ public class MainActivity extends AppCompatActivity
             tw_info.setVisibility(View.INVISIBLE);
     }
 
+
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
@@ -129,8 +134,6 @@ public class MainActivity extends AppCompatActivity
             i.putExtra("sharedPreferences", shared_prefs);
             startActivity(i);
         }
-        if(item.getItemId() == R.id.about)
-            Toast.makeText(this, "ABOUT", Toast.LENGTH_LONG).show();
 
         return super.onOptionsItemSelected(item);
     }

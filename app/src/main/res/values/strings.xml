@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RandomWordGenerator</string>
+    <string name="app_name">Atsitiktinių Žodžių Generatorius</string>
     <string name="sveiki">Sveiki!</string>
     <string name="kitas">Kitas</string>
     <string name="settings">Settings</string>
