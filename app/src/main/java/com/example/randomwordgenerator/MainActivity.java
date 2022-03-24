@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity
     Toolbar action_bar;
     Random rand;
 
-    DatabaseHelper dbh = new DatabaseHelper(this);
+    DatabaseHelper dbh;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity
         action_bar = findViewById(R.id.toolbar);
         rand = new Random();
         enabled_dictionaries = new BitSet();
+        dbh = new DatabaseHelper(this);
 
         action_bar.setTitle("");
         setSupportActionBar(action_bar);
@@ -62,6 +63,8 @@ public class MainActivity extends AppCompatActivity
 
             int size = dbh.getTableSize(random_table_id);
             int random_word_id = rand.nextInt(size);
+
+            random_word_id++;
 
             String random_word = dbh.getRandomWord(random_table_id, random_word_id);
             if(random_word.equals("-1"))
